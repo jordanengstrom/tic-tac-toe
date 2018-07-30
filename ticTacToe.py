@@ -24,15 +24,17 @@ def inputPlayerLetter():
         print('Do you want to be X or O?')
         letter = input().upper()
         if letter == 'X':
-            return ['Player: X', 'Computer: O']
+            return ['X', 'O']
+            #[player, computer]
         else:
-            return ['Computer: X', 'Player: O']
+            return ['X', 'O']
+            #[computer, player]
 
 def whoGoesFirst():
     if random.randint(0,1) == 0:
-        return 'Computer goes first'
+        return 'Computer'
     else:
-        return 'Player goes first'
+        return 'Player'
 
 def makeMove(board, letter, move):
     board[move] = letter
@@ -56,7 +58,7 @@ def getBoardCopy(board):
     dupeBoard = []
     for i in board:
         dupeBoard.append(i)
-        return dupeBoard
+    return dupeBoard
 
 # Returns true if the passed move if space is free
 def isSpaceFree(board, move):
@@ -78,26 +80,26 @@ def chooseRandomMoveFromList(board, movesList):
             possibleMoves.append(i)
     if len(possibleMoves) != 0:
         return random.choice(possibleMoves)
-    else:
-        return None
+ #   else:
+#        return None
 
 def getComputerMove(board, computerLetter):
     if computerLetter == 'X':
         playerLetter = 'O'
     else:
-        playerLetter = 'X'
+       playerLetter = 'X'
 
     # Here is the algorithm for the Tic Tac Toe AI:
     # Check if the computer can win in the next move
-    for i in range (1,10):
+    for i in range (1, 10):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, computerLetter, i)
             if isWinner(copy, computerLetter):
                 return i
-    
+
     # Check if the player can win on their next move, and block them.
-    for i in range (1,10):
+    for i in range (1, 10):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, playerLetter, i)
@@ -105,14 +107,14 @@ def getComputerMove(board, computerLetter):
                 return i
 
     # Try to take one of the corners, if they are free.
-    move = chooseRandomMoveFromList(board, [1,3,7,9])
+    move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
     if move != None:
         return move
     #Try to take the center, if it is free.
     if isSpaceFree(board, 5):
         return 5
     #Move on one of the sides.
-    return chooseRandomMoveFromList(board, [2,4,6,8])
+    return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 
 def isBoardFull(board):
@@ -131,16 +133,17 @@ drawBoard(theBoard)
 
 # The start of the game
 print('Welcome to Tic Tac Toe!')
+
 while True:
     theBoard = [' '] * 10
     playerLetter, computerLetter = inputPlayerLetter()
 
     turn = whoGoesFirst()
-    print ('The' + turn + ' will go first.')
+    print (turn)
     gameIsPlaying = True
 
     while gameIsPlaying:
-        if turn == 'player':
+        if turn == 'Player':
             # Running the Player's Turn
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
@@ -156,7 +159,7 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'computer'
+                    turn = 'Computer'
         else:
             # Running the Computer's turn
             move = getComputerMove(theBoard, computerLetter)
@@ -171,6 +174,6 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'player'
+                    turn = 'Player'
     if not playAgain():
         break

@@ -7,7 +7,7 @@ theBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # "board" is a list of 10 strings representing the board
 def drawBoard(board):
     print('   |   |')
-    print(' ' + board[7] + ' | ' + board[8] + ' |  ' + board[9])
+    print(' ' + board[1] + ' | ' + board[2] + ' |  ' + board[3])
     print('   |   |')
     print('-----------')
     print('   |   |')
@@ -15,8 +15,22 @@ def drawBoard(board):
     print('   |   |')
     print('-----------')
     print('   |   |')
-    print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+    print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |')
+
+def drawKey():
+    print('The board is laid out as follows:')
+    print('     |     |   ')
+    print('  1  |  2  |  3')
+    print('     |     |   ')
+    print('---------------')
+    print('     |     |   ')
+    print('  4  |  5  |  6')
+    print('     |     |   ')
+    print('---------------')
+    print('     |     |   ')
+    print('  7  |  8  |  9')
+    print('     |     |   ')
 
 def inputPlayerLetter():
     letter = ''
@@ -26,15 +40,17 @@ def inputPlayerLetter():
         if letter == 'X':
             return ['X', 'O']
             #[player, computer]
+        elif letter != 'X' and letter!= 'O':
+            print('That\'s not a choice!')
         else:
             return ['X', 'O']
             #[computer, player]
 
 def whoGoesFirst():
     if random.randint(0,1) == 0:
-        return 'Computer'
+        return 'Computer goes first'
     else:
-        return 'Player'
+        return 'Player goes first'
 
 def makeMove(board, letter, move):
     board[move] = letter
@@ -89,7 +105,7 @@ def getComputerMove(board, computerLetter):
     else:
        playerLetter = 'X'
 
-    # Here is the algorithm for the Tic Tac Toe AI:
+    # Tic Tac Toe core logic:
     # Check if the computer can win in the next move
     for i in range (1, 10):
         copy = getBoardCopy(board)
@@ -129,10 +145,11 @@ def playAgain():
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
-drawBoard(theBoard)
+#drawBoard(theBoard)
 
 # The start of the game
 print('Welcome to Tic Tac Toe!')
+drawKey()
 
 while True:
     theBoard = [' '] * 10
@@ -143,7 +160,7 @@ while True:
     gameIsPlaying = True
 
     while gameIsPlaying:
-        if turn == 'Player':
+        if turn == 'Player goes first':
             # Running the Player's Turn
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
@@ -159,7 +176,7 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'Computer'
+                    turn = 'Computer goes first'
         else:
             # Running the Computer's turn
             move = getComputerMove(theBoard, computerLetter)
@@ -174,6 +191,6 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'Player'
+                    turn = 'Player goes first'
     if not playAgain():
         break

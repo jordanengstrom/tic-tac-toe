@@ -6,53 +6,54 @@ theBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 # This function prints out the board that it was passed
 # "board" is a list of 10 strings representing the board
 def drawBoard(board):
-    print('   |   |')
-    print(' ' + board[1] + ' | ' + board[2] + ' |  ' + board[3])
-    print('   |   |')
-    print('-----------')
-    print('   |   |')
-    print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
-    print('   |   |')
-    print('-----------')
-    print('   |   |')
-    print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
-    print('   |   |')
+    print(' ')
+    print('        |   |')
+    print('      ' + board[1] + ' | ' + board[2] + ' |  ' + board[3])
+    print('        |   |')
+    print('     -----------')
+    print('        |   |')
+    print('      ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+    print('        |   |')
+    print('     -----------')
+    print('        |   |')
+    print('      ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+    print('        |   |')
 
 def drawKey():
-    print('The board is laid out as follows:')
-    print('     |     |   ')
-    print('  1  |  2  |  3')
-    print('     |     |   ')
-    print('---------------')
-    print('     |     |   ')
-    print('  4  |  5  |  6')
-    print('     |     |   ')
-    print('---------------')
-    print('     |     |   ')
-    print('  7  |  8  |  9')
-    print('     |     |   ')
+    print('     The board is laid out as follows:')
+    print('          |     |   ')
+    print('       1  |  2  |  3')
+    print('          |     |   ')
+    print('     ---------------')
+    print('          |     |   ')
+    print('       4  |  5  |  6')
+    print('          |     |   ')
+    print('     ---------------')
+    print('          |     |   ')
+    print('       7  |  8  |  9')
+    print('          |     |   ')
 
 
 
 def inputPlayerLetter():
     letter = ''
     while not (letter == 'X' or letter == 'O'):
-        print('Do you want to be X or O?')
+        print('     Do you want to be X or O?')
         letter = input().upper()
         if letter == 'X':
             return ['X', 'O']
             #[player, computer]
         elif letter != 'X' and letter!= 'O':
-            print('That\'s not a choice!')
+            print('     That\'s not a choice!')
         else:
             return ['X', 'O']
             #[computer, player]
 
 def whoGoesFirst():
     if random.randint(0,1) == 0:
-        return 'Computer goes first'
+        return '     Computer goes first'
     else:
-        return 'Player goes first'
+        return '     Player goes first'
 
 def makeMove(board, letter, move):
     board[move] = letter
@@ -87,7 +88,7 @@ def getPlayerMove(board):
     move = ' '
     # Is there a more straightforward way to represent this?
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
-        print('What is your next move? (1-9)')
+        print('     What is your next move? (1-9)')
         move = input()
     return int(move)
 
@@ -144,13 +145,14 @@ def isBoardFull(board):
 
 # This function returns True if the player wants to play again, otherwise it returns False.
 def playAgain():
-    print('Do you want to play again? (yes or no)')
+    print('     Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
 #drawBoard(theBoard)
 
 # The start of the game
-print('Welcome to Tic Tac Toe!')
+print(' ')
+print('     Welcome to Tic Tac Toe!')
 drawKey()
 
 while True:
@@ -162,7 +164,7 @@ while True:
     gameIsPlaying = True
 
     while gameIsPlaying:
-        if turn == 'Player goes first':
+        if turn == '     Player goes first':
             # Running the Player's Turn
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
@@ -170,29 +172,29 @@ while True:
 
             if isWinner(theBoard, playerLetter):
                 drawBoard(theBoard)
-                print('Hooray! You have won the game!')
+                print('     Hooray! You have won the game!')
                 gameIsPlaying = False
             else:
                 if isBoardFull(theBoard):
                     drawBoard(theBoard)
-                    print('The game is a tie!')
+                    print('     The game is a tie!')
                     break
                 else:
-                    turn = 'Computer goes first'
+                    turn = '     Computer goes first'
         else:
             # Running the Computer's turn
             move = getComputerMove(theBoard, computerLetter)
             makeMove(theBoard, computerLetter, move)
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
-                print('The computer has beaten you! You lose.')
+                print('     The computer has beaten you! You lose.')
                 gameIsPlaying = False
             else:
                 if isBoardFull(theBoard):
                     drawBoard(theBoard)
-                    print('The game is a tie!')
+                    print('     The game is a tie!')
                     break
                 else:
-                    turn = 'Player goes first'
+                    turn = '     Player goes first'
     if not playAgain():
         break

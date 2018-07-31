@@ -31,7 +31,8 @@ def drawKey():
     print('     |     |   ')
     print('  7  |  8  |  9')
     print('     |     |   ')
-    
+
+
 
 def inputPlayerLetter():
     letter = ''
